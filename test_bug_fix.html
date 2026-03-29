@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品经理助手 - Bug修复测试</title>
+    <link rel="stylesheet" href="pm_agent.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Bug修复测试页面</h1>
+        
+        <div class="test-section">
+            <h2>测试优先级样式</h2>
+            <div class="test-results">
+                <p><span class="priority-high">高优先级</span></p>
+                <p><span class="priority-medium">中优先级</span></p>
+                <p><span class="priority-low">低优先级</span></p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试事实项样式</h2>
+            <div class="fact-item">
+                <div class="fact-header">
+                    <span class="fact-id">#1</span>
+                    <span class="fact-time">16:38</span>
+                </div>
+                <div class="fact-content">这是一个测试事实内容，用于验证样式是否正确显示。</div>
+                <div class="fact-meta">
+                    <span class="fact-speakers">👤 产品经理, 开发</span>
+                    <span class="fact-topics">🏷️ 功能, 需求</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试待确认项样式</h2>
+            <div class="pending-item">
+                <div class="pending-header">
+                    <span class="pending-id">#1</span>
+                    <span class="pending-type">待确认</span>
+                    <span class="pending-priority priority-高">高</span>
+                </div>
+                <div class="pending-content">这是一个待确认的测试内容，用于验证样式是否正确显示。</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试决策项样式</h2>
+            <div class="decision-item">
+                <div class="decision-header">
+                    <span class="decision-id">#1</span>
+                    <span class="decision-status">已确认</span>
+                </div>
+                <div class="decision-content">这是一个决策测试内容，用于验证样式是否正确显示。</div>
+                <div class="decision-meta">
+                    <span class="decision-owner">👤 产品经理</span>
+                    <span class="decision-deadline">⏰ 2周</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试问题项样式</h2>
+            <div class="question-item">
+                <div class="question-header">
+                    <span class="question-id">Q1</span>
+                    <span class="question-section">方案说明</span>
+                    <span class="question-risk risk-高">高</span>
+                </div>
+                <div class="question-content">这是一个测试问题，用于验证样式是否正确显示。</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试工单项样式</h2>
+            <div class="ticket-item">
+                <div class="ticket-header">
+                    <span class="ticket-id">TICKET-0001</span>
+                    <span class="ticket-type">frontend</span>
+                </div>
+                <div class="ticket-title">测试工单标题</div>
+                <div class="ticket-description">这是一个测试工单描述，用于验证样式是否正确显示。</div>
+                <div class="ticket-meta">
+                    <span>优先级：<span class="priority-high">高</span></span>
+                    <span>预估：3天</span>
+                    <span>状态：待开始</span>
+                    <span>负责人：待分配</span>
+                </div>
+                <div class="ticket-risks">
+                    <strong>⚠️ 风险提示：</strong>
+                    <ul>
+                        <li>高优先级任务，需要重点关注</li>
+                        <li>需要与前端紧密配合</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>测试Toast通知</h2>
+            <button onclick="showToast('测试成功消息', 'success')">测试成功消息</button>
+            <button onclick="showToast('测试错误消息', 'error')">测试错误消息</button>
+            <button onclick="showToast('测试警告消息', 'warning')">测试警告消息</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

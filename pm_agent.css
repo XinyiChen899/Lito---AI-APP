@@ -847,3 +847,427 @@ textarea:focus {
 .question-item {
     animation: fadeIn 0.3s ease-out;
 }
+
+.priority-high {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+.priority-medium {
+    color: var(--warning-color);
+    font-weight: 600;
+}
+
+.priority-low {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.fact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.fact-id {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.fact-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.fact-content {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.fact-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.fact-speakers,
+.fact-topics {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.pending-item {
+    background: var(--background-tertiary);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid var(--warning-color);
+}
+
+.pending-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.pending-id {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.pending-type {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--warning-color);
+    color: white;
+}
+
+.pending-priority {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+}
+
+.pending-priority.priority-高 {
+    background: var(--danger-color);
+    color: white;
+}
+
+.pending-priority.priority-中 {
+    background: var(--warning-color);
+    color: white;
+}
+
+.pending-priority.priority-低 {
+    background: var(--success-color);
+    color: white;
+}
+
+.pending-content {
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.decision-item {
+    background: var(--background-tertiary);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid var(--success-color);
+}
+
+.decision-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.decision-id {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.decision-status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--success-color);
+    color: white;
+}
+
+.decision-content {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.decision-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.decision-owner,
+.decision-deadline {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.result-content {
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.result-content p {
+    margin-bottom: 0.5rem;
+}
+
+.result-content ul {
+    padding-left: 1.5rem;
+}
+
+.result-content li {
+    margin-bottom: 0.25rem;
+}
+
+.reference-content {
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.reference-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.reference-content p {
+    margin-bottom: 0.5rem;
+}
+
+.reference-content ul {
+    padding-left: 1.5rem;
+}
+
+.reference-content li {
+    margin-bottom: 0.25rem;
+}
+
+.reference-count {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+.prd-document {
+    font-size: 0.875rem;
+    line-height: 1.8;
+}
+
+.prd-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.prd-header h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color);
+}
+
+.prd-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.prd-section {
+    margin-bottom: 2rem;
+}
+
+.prd-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.prd-content {
+    padding-left: 1rem;
+}
+
+.prd-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1rem 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+.prd-content p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.question-item {
+    background: var(--background-tertiary);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid var(--warning-color);
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.question-id {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.question-section {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--secondary-color);
+    color: white;
+}
+
+.question-risk {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+}
+
+.question-risk.risk-高 {
+    background: var(--danger-color);
+    color: white;
+}
+
+.question-risk.risk-中 {
+    background: var(--warning-color);
+    color: white;
+}
+
+.question-risk.risk-低 {
+    background: var(--success-color);
+    color: white;
+}
+
+.question-content {
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.decision-record {
+    background: var(--background-tertiary);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid var(--success-color);
+}
+
+.decision-record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.decision-record-id {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.decision-record-status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--success-color);
+    color: white;
+}
+
+.decision-record-content {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.decision-record-meta {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.dispute-item {
+    background: var(--background-tertiary);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid var(--danger-color);
+}
+
+.dispute-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.dispute-id {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.dispute-deadline {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.dispute-content {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+}
+
+.dispute-positions {
+    margin-bottom: 0.75rem;
+}
+
+.dispute-positions strong {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+.dispute-positions ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.dispute-meta {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.ticket-risks {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.ticket-risks strong {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.ticket-risks ul {
+    padding-left: 1.5rem;
+}
+
+.ticket-risks li {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
