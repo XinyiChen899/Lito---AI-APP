@@ -1,269 +1,318 @@
-# Lito 情感行为合成助手 (Lito Behavior Synthesis Agent)
+# 产品经理协助Agent系统 (Product Manager Agent System)
 
-基于 LERE (Lito Emotional Resonance Engine) 协议的智能行为参数生成系统，将自然语言的情感描述转化为具身智能机器人的可执行参数。
+智能化产品需求管理与PRD生成平台，包含5个专业代理协作完成从会议记录到工单拆解的全流程。
 
 ## 📋 项目概述
 
-Lito Agent 是一个专为具身智能产品经理设计的工具，能够将感性的交互需求（如"希望它被忽视时会委屈地碎碎念"）自动转化为符合 LERE 协议的结构化参数流，包括马达偏转角度、速度算子和音频调优参数。
+产品经理协助Agent系统是一个专为产品经理设计的智能化工具，通过5个专业代理的协作，将会议记录、业务需求自动转化为结构化的PRD文档和可执行的工单，大幅提升产品经理的工作效率。
 
 ## 🎯 核心功能
 
-### 1. 情感计算 (VAT Calculator)
-- 自然语言情感倾向识别
-- VAT (Valence-Arousal-Time) 坐标计算
-- 情感强度分析
-- 置信度评估
+### 1. 会议转录与事实整理员 (Recorder)
+- 会议录音/纪要/聊天记录处理
+- 自动提取事实清单
+- 识别待确认点和决策事项
+- 数据脱敏保护敏感信息
+- 决策与责任人追踪
 
-### 2. 马达仿真 (Motor Simulator)
-- 多马达轨迹生成
-- 贝塞尔曲线插值
-- 热负载分析
-- 碰撞检测
-- 安全边界校验
-- PID 参数优化
+### 2. 业务意图翻译官 (Intent Translator)
+- 业务需求深度理解
+- 目标与约束提取
+- 关键假设识别
+- 优先级智能建议
+- 从"功能需求"到"产品决策"的转化
 
-### 3. 协议导出 (LERE Exporter)
-- JSON 格式导出
-- CSV 格式导出
-- Trae Builder 兼容格式
-- 数据验证和报告生成
+### 3. PRD结构化写手 (PRD Writer)
+- 自动生成完整PRD文档
+- 包含背景、目标、范围、用户旅程
+- 方案说明与埋点指标
+- 风险评估与灰度策略
+- 结构化输出便于评审
 
-### 4. 边界处理 (Boundary Handler)
-- 歧义识别和澄清
-- 风险操作确认
-- 用户中断处理
-- 备份和恢复机制
-- 不确定性评估
+### 4. 评审挑战模拟器 (Reviewer)
+- 多角色评审模拟（开发、测试、数据、合规）
+- 智能生成挑战问题
+- 决策记录与争议清单
+- 风险分级和问题定位
+- 提前发现潜在问题
+
+### 5. 工单与落地拆解员 (Ticket Generator)
+- 按模块拆分任务（前端、后端、数据、配置）
+- 自动生成工单列表
+- 优先级和时间预估
+- 依赖关系和风险提示
+- 支持工单过滤和导出
 
 ## 🚀 快速开始
 
 ### 基础使用
 
-```javascript
-// 创建 Agent 实例
-const agent = new LitoAgent();
+1. **打开系统**
+   ```bash
+   # 在浏览器中打开
+   open pm_agent.html
+   ```
 
-// 处理用户请求
-const result = await agent.processRequest(
-    "当Lito被忽视时，会委屈地碎碎念，头微微低下",
-    {
-        persona: 'friendly',
-        evolution: {
-            daysRaised: 50
-        }
-    }
-);
+2. **使用流程**
+   - 步骤1：在"会议转录与事实整理员"中输入会议内容
+   - 步骤2：在"业务意图翻译官"中确认业务意图
+   - 步骤3：在"PRD结构化写手"中生成PRD文档
+   - 步骤4：在"评审挑战模拟器"中进行多角色评审
+   - 步骤5：在"工单与落地拆解员"中生成工单
 
-// 检查结果
-if (result.success) {
-    console.log('VAT 坐标:', result.data.vat);
-    console.log('马达参数:', result.data.motorParameters);
-    console.log('安全等级:', result.data.safetyLevel);
-    
-    // 导出为 JSON
-    const exportResult = agent.lereExporter.exportToJSON(result.data.behavior);
-    console.log('导出文件:', exportResult.filename);
-}
-```
+3. **导出结果**
+   - 点击"导出报告"按钮
+   - 获取完整的JSON格式报告
 
-### Web 界面使用
+### Web界面使用
 
-1. 打开 `lito_agent.html` 文件
-2. 在输入框中描述您希望 Lito 表现的行为
-3. 选择性格设定和演化参数
-4. 点击"生成行为参数"按钮
-5. 查看生成的 VAT 分析、马达参数、音频参数和仿真结果
-6. 选择导出格式（JSON/CSV/Trae）
+1. 打开 `pm_agent.html` 文件
+2. 按照左侧导航栏的5个代理依次操作
+3. 每个代理会自动将结果传递给下一个代理
+4. 完成所有步骤后可导出完整报告
 
 ## 📁 项目结构
 
 ```
 trae_11/
-├── lito_agent.html          # 主界面
-├── lito_agent.css           # 样式文件
-├── lito_agent.js            # 核心 Agent 类
-├── vat_calculator.js        # VAT 情感计算器
-├── motor_simulator.js       # 马达仿真器
-├── lere_exporter.js         # 协议导出器
-├── boundary_handler.js      # 边界处理器
-├── lito_ui.js               # UI 交互逻辑
-├── examples.html            # 示例和测试页面
-└── README.md               # 项目文档
+├── pm_agent.html           # 主界面
+├── pm_agent.css            # 样式文件
+├── pm_agent.js             # 核心逻辑
+├── README.md              # 项目文档
+├── GITHUB_DEPLOYMENT.md   # GitHub部署指南
+├── DEPLOYMENT.md         # 部署方案对比
+├── QUICK_DEPLOY.md       # 快速部署指南
+└── DEPLOY_NOW.md        # 立即部署指南
 ```
 
 ## 🔧 核心组件说明
 
-### VATCalculator
-负责将自然语言描述转换为 VAT 坐标：
+### ProductManagerAgent
+主控制器类，协调整个系统的工作流程：
 
 ```javascript
-const calculator = new VATCalculator();
-const result = calculator.calculate("Lito很开心，兴奋地跳跃");
+const agent = new ProductManagerAgent();
 
-console.log(result.valence);    // 情感倾向: -1 到 1
-console.log(result.arousal);    // 激活度: -1 到 1
-console.log(result.confidence); // 置信度: 0 到 1
+// 初始化所有代理
+agent.init();
+
+// 切换代理面板
+agent.switchAgent('recorder');
+
+// 处理会议内容
+agent.processMeetingContent();
+
+// 生成PRD
+agent.generatePRD();
+
+// 导出报告
+agent.exportReport();
 ```
 
-### MotorSimulator
-模拟马达运行轨迹和安全检查：
+### 会议处理流程
 
 ```javascript
-const simulator = new MotorSimulator();
-const motorParams = {
-    head: {
-        startPosition: 0,
-        endPosition: 30,
-        duration: 1000,
-        curveType: 'easeInOut'
-    }
-};
+// 1. 输入会议内容
+const meetingInput = "今天开会讨论了用户登录功能的需求...";
 
-const result = simulator.simulate(motorParams);
-console.log(result.trajectories);      // 运动轨迹
-console.log(result.thermalAnalysis);   // 热负载分析
-console.log(result.collisionWarnings); // 碰撞警告
-console.log(result.overallSafety);    // 整体安全等级
+// 2. 处理并提取信息
+const result = agent.analyzeMeeting(meetingInput, true, true);
+
+// 3. 获取结构化结果
+console.log(result.facts);         // 事实清单
+console.log(result.pendingPoints);   // 待确认点
+console.log(result.decisions);      // 决策与责任人
 ```
 
-### LEREExporter
-导出符合 LERE 协议的文件：
+### PRD生成流程
 
 ```javascript
-const exporter = new LEREExporter();
+// 1. 翻译业务意图
+const businessIntent = agent.generateBusinessIntent(businessInput, facts);
 
-// JSON 格式
-const jsonResult = exporter.exportToJSON(behaviorData);
+// 2. 创建PRD文档
+const prd = agent.createPRD(name, version, owner, deadline, businessIntent);
 
-// CSV 格式
-const csvResult = exporter.exportToCSV(behaviorData);
-
-// Trae 格式
-const traeResult = exporter.exportToTraeFormat(behaviorData);
-```
-
-### BoundaryHandler
-处理边界条件和安全机制：
-
-```javascript
-const handler = new BoundaryHandler();
-
-// 歧义检查
-const ambiguityCheck = handler.handleAmbiguity("大力一点");
-
-// 风险操作检查
-const riskCheck = handler.checkRiskOperation("修改核心逻辑");
-
-// 不确定性评估
-const uncertainty = handler.assessUncertainty(result);
-
-// 创建备份
-const backup = await handler.createBackupBeforeOperation(data, 'operation');
+// 3. 获取完整PRD
+console.log(prd.metadata);    // 元数据
+console.log(prd.sections);     // 各章节内容
 ```
 
 ## 🎨 使用示例
 
-### 示例 1: 基础情感行为
+### 示例 1: 完整工作流程
+
 ```
-输入: "当Lito被主人忽视时，会委屈地碎碎念，头微微低下，身体轻微颤抖"
-输出: VAT(valence: -0.6, arousal: 0.4) | 马达参数生成成功 | 安全等级: safe
+输入会议记录:
+"今天开会讨论了用户登录功能的需求。产品经理说需要支持手机号和邮箱登录。
+开发负责人表示需要2周时间完成。测试人员建议增加验证码功能。
+会议决定先做手机号登录，邮箱登录放到第二期。"
+
+↓ 代理1处理
+事实清单: 4条关键事实
+待确认点: 2条（邮箱登录时间、验证码方案）
+决策记录: 1条（优先手机号登录）
+
+↓ 代理2翻译
+目标: 实现用户登录功能，提升用户注册转化率
+约束: 2周开发周期，需兼容现有系统
+优先级: 高（核心业务需求）
+
+↓ 代理3生成PRD
+完整PRD文档，包含6个主要章节
+
+↓ 代理4评审
+开发问题: 6个（边界、异常、性能等）
+测试问题: 5个（验收标准、极端场景等）
+决策记录: 3条关键决策
+
+↓ 代理5拆解
+工单总数: 13个
+前端工单: 4个
+后端工单: 4个
+数据工单: 3个
+配置工单: 2个
 ```
 
-### 示例 2: 害怕反应
-```
-输入: "设计一个Lito害怕打雷的反应，身体缩成一团，耳朵贴紧头部，发出低沉的呜咽声"
-输出: VAT(valence: -0.8, arousal: 0.9) | 马达参数生成成功 | 安全等级: caution (噪音风险)
-```
+### 示例 2: 数据脱敏
 
-### 示例 3: 演化逻辑
 ```
-输入: "摸头动作，启用演化逻辑，养了100天后变得更粘人"
-输出: VAT(valence: 0.7, arousal: 0.3) | 演化加成: +20% 亲密度 | 安全等级: safe
+输入: "张三的手机号是13812345678，邮箱是zhangsan@example.com"
+开启脱敏: ✅
+输出: "***的手机号是138****5678，邮箱是***@***.***"
 ```
 
-## 🛡️ 安全机制
+## 🛡️ 数据安全
 
-### 1. 决策逻辑
-- **继续执行**: 输入描述包含明确的刺激源和预期情感倾向
-- **暂停询问**: 可能导致硬件过载或与已定义性格偏离 80% 以上
-- **终止任务**: 涉及非法用途（如设定暴力攻击动作）
+### 敏感信息保护
+- **数据脱敏**: 自动识别并替换人名、手机号、邮箱等敏感信息
+- **本地处理**: 所有数据处理在本地完成，不上传到外部服务器
+- **结构化输出**: 只输出必要的摘要信息，不保留原始全量数据
 
-### 2. 边界条件
-- **歧义处理**: "大力一点"会询问是"力量大"还是"幅度大"
-- **不确定性表达**: 标记 Confidence 和 Warning
-- **风险操作确认**: 涉及核心底层逻辑的操作增加二次确认
-- **用户中断**: 支持 ESC 键暂停处理
-- **不可逆操作保护**: 自动创建 .bak 备份文件
+### 隐私保护机制
+- 会议录音、聊天记录、指标数据等敏感信息处理
+- 支持企业内网/私有化环境部署
+- 必须使用外部模型时先脱敏处理
+- 只给"必要信息"，不给原始全量日志
 
-### 3. 降级策略
-- 仿真失败时输出静态角度参考值
-- 低算力环境停止生成复杂贝塞尔曲线
-- 语义歧义时执行引导式提问
+## 📊 系统特点
 
-## 📊 评估指标
+### 智能化
+- 自动提取会议关键信息
+- 智能识别业务意图
+- 多角色评审模拟
+- 自动工单拆解
 
-- **任务完成率**: 生成的参数无需修改直接被研发采纳的比例（目标 > 70%）
-- **人工干预率**: 每生成 10 个动作场景，用户被迫进入"暂停询问"环节的次数
-- **用户接受率**: PM 对 Agent 生成的"描述语"与"动作拟真度"的满意度打分
-- **安全边界触发率**: 成功拦截可能导致马达烧毁的异常指令次数
+### 协作化
+- 5个代理无缝衔接
+- 数据自动流转
+- 实时进度跟踪
+- 决策记录完整
+
+### 专业性
+- 结构化PRD输出
+- 多维度评审视角
+- 风险提前识别
+- 工单详细拆解
+
+### 易用性
+- 直观的用户界面
+- 实时反馈提示
+- 一键导出报告
+- 本地数据持久化
 
 ## 🧪 测试
 
-打开 `examples.html` 页面可以运行完整的测试套件：
+系统包含完整的测试和示例：
 
-- VAT 情感计算测试
-- 马达仿真安全检查测试
-- 导出功能测试（JSON/CSV/Trae）
-- 边界处理测试
-- 安全机制测试
+- 会议内容处理测试
+- 业务意图翻译测试
+- PRD生成测试
+- 多角色评审测试
+- 工单拆解测试
 
-## 🔄 人机协作节点
+## 🔄 人机协作
 
-### 关键确认
-当 Agent 生成的马达角度超过物理限位时，必须由 PM 手动确认是否需要物理限位保护逻辑。
+### 关键确认节点
+- PRD生成前确认业务意图
+- 评审前选择评审角色
+- 工单生成前设置里程碑
 
-### 性格一致性
-Agent 基于历史性格数据维护 Lito 的行为一致性，当新行为与历史性格偏离超过 80% 时会触发警告。
+### 智能辅助
+- 自动识别待确认点
+- 智能推荐优先级
+- 提前发现潜在风险
+- 提供决策建议
 
-## 📝 LERE 协议规范
+## 📝 输出规范
 
-### VAT 坐标系统
-- **Valence (情感倾向)**: -1 (负面) 到 1 (正面)
-- **Arousal (激活度)**: -1 (平静) 到 1 (激动)
-- **Time (时间维度)**: 0 (立即) 到 1 (持续)
+### 事实清单格式
+- 包含发言者、话题、时间戳
+- 结构化存储便于检索
+- 支持按话题筛选
 
-### 马达参数规范
-- **运动范围**: -90° 到 90°
-- **持续时间**: 100ms 到 10000ms
-- **曲线类型**: linear, easeIn, easeOut, easeInOut, bezier
-- **最大速度**: 360°/s
+### PRD文档结构
+1. 背景与问题定义
+2. 目标与范围（In/Out）
+3. 核心流程（用户旅程）
+4. 方案说明（关键交互/关键规则）
+5. 埋点与指标
+6. 风险与灰度策略
 
-### 音频参数规范
-- **音调 (Pitch)**: 0.5 到 2.0
-- **音量 (Volume)**: 0 到 1
-- **持续时间**: 100ms 到 5000ms
+### 工单格式
+- 工单编号（TICKET-XXXX）
+- 标题和描述
+- 类型（前端/后端/数据/配置）
+- 优先级和预估时间
+- 负责人和依赖关系
+- 风险提示
 
 ## 🚨 限制说明
 
-### 能力限制
-- **不做**: 不直接修改底层固件 C++ 代码（避免系统崩溃）
-- **原因**: 硬件安全限制，所有生成的机械运动必须经过仿真器二次校验
+### 能力边界
+- **不做**: 不直接修改代码或执行实际开发任务
+- **原因**: 系统专注于产品需求管理和文档生成，避免越界操作
 
 ### 降级处理
-- 在低算力环境下，停止生成复杂的贝塞尔插值曲线，仅输出起始与终点位置
-- 若 Motor_Simulator 调用失败，则降级为输出静态角度参考值
+- 复杂会议内容可能需要人工辅助确认
+- 特殊业务场景可能需要调整代理参数
+- 大型项目可能需要分批处理
 
 ## 📞 技术支持
 
 如遇到问题或需要技术支持，请查看：
-1. `examples.html` 中的使用示例和测试用例
-2. 浏览器控制台的错误日志
-3. 各个 JS 文件中的详细注释
+1. `GITHUB_DEPLOYMENT.md` - GitHub部署详细指南
+2. `DEPLOYMENT.md` - 多种部署方案对比
+3. `QUICK_DEPLOY.md` - 快速部署指南
+4. 浏览器控制台的错误日志
+5. 各个文件中的详细注释
+
+## 🚀 部署到GitHub
+
+系统支持一键部署到GitHub Pages：
+
+```bash
+# 1. 创建GitHub仓库
+# 访问 https://github.com/new
+# 仓库名: pm-agent-assistant
+
+# 2. 推送代码
+git push -u origin main
+
+# 3. 启用GitHub Pages
+# 访问仓库Settings -> Pages
+# 选择 main 分支部署
+
+# 4. 访问网站
+# https://你的用户名.github.io/pm-agent-assistant/pm_agent.html
+```
+
+详细部署指南请参考 `QUICK_DEPLOY.md` 文件。
 
 ## 📄 许可证
 
-本项目遵循 LERE 协议规范，仅供内部使用。
+本项目仅供内部使用和学习交流。
 
 ## 🙏 致谢
 
-感谢 Lito 团队在具身智能领域的持续探索和创新。
+感谢产品经理社区的实践经验和智慧结晶，为本系统的设计提供了宝贵的参考。

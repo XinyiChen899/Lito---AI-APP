@@ -24,3 +24,21 @@ yarn-error.log*
 .env
 .env.local
 .env.*.local
+
+# Lito项目文件（与PM Agent无关）
+lito_agent.html
+lito_agent.css
+lito_agent.js
+lito_ui.js
+vat_calculator.js
+motor_simulator.js
+lere_exporter.js
+boundary_handler.js
+examples.html
+
+# 其他无关文件
+index.html
+script.js
+style.css
+test_bug_fix.html
+vat_calculator.js
