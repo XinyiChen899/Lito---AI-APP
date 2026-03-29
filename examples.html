@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lito Agent 示例和测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #1e293b;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .example-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+
+        .example-card:hover {
+            border-color: #6366f1;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+        }
+
+        .example-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .example-description {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .example-input {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 13px;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+
+        .example-output {
+            background: #f0fdf4;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #166534;
+        }
+
+        .test-case {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .test-case:hover {
+            background: #f8fafc;
+        }
+
+        .test-status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .test-status.pass {
+            background: #10b981;
+            color: white;
+        }
+
+        .test-status.fail {
+            background: #ef4444;
+            color: white;
+        }
+
+        .test-status.pending {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .test-info {
+            flex: 1;
+        }
+
+        .test-name {
+            font-weight: 500;
+            color: #1e293b;
+        }
+
+        .test-description {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #6366f1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin-bottom: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #6366f1, #818cf8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Lito 情感行为合成助手 - 示例和测试</h1>
+        <p class="subtitle">LERE Protocol v1.0 | 完整功能演示和测试用例</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalTests">12</div>
+                <div class="stat-label">总测试用例</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="passedTests">0</div>
+                <div class="stat-label">通过测试</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="failedTests">0</div>
+                <div class="stat-label">失败测试</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="successRate">0%</div>
+                <div class="stat-label">成功率</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📋 使用示例</h2>
+            
+            <div class="example-card">
+                <div class="example-title">示例 1: 基础情感行为</div>
+                <div class="example-description">设计Lito被忽视时的委屈反应</div>
+                <div class="example-input">输入: "当Lito被主人忽视时，会委屈地碎碎念，头微微低下，身体轻微颤抖"</div>
+                <div class="example-output">输出: VAT(valence: -0.6, arousal: 0.4) | 马达参数生成成功 | 安全等级: safe</div>
+            </div>
+
+            <div class="example-card">
+                <div class="example-title">示例 2: 害怕反应</div>
+                <div class="example-description">设计Lito害怕打雷的反应</div>
+                <div class="example-input">输入: "设计一个Lito害怕打雷的反应，身体缩成一团，耳朵贴紧头部，发出低沉的呜咽声"</div>
+                <div class="example-output">输出: VAT(valence: -0.8, arousal: 0.9) | 马达参数生成成功 | 安全等级: caution (噪音风险)</div>
+            </div>
+
+            <div class="example-card">
+                <div class="example-title">示例 3: 兴奋反应</div>
+                <div class="example-description">设计Lito看到主人回家时的兴奋反应</div>
+                <div class="example-input">输入: "当Lito看到主人回家时，非常兴奋，尾巴快速摇摆，身体跳动，发出欢快的叫声"</div>
+                <div class="example-output">输出: VAT(valence: 0.9, arousal: 0.8) | 马达参数生成成功 | 安全等级: safe</div>
+            </div>
+
+            <div class="example-card">
+                <div class="example-title">示例 4: 演化逻辑</div>
+                <div class="example-description">启用演化逻辑，模拟养了100天后更粘人的行为</div>
+                <div class="example-input">输入: "摸头动作，启用演化逻辑，养了100天后变得更粘人"</div>
+                <div class="example-output">输出: VAT(valence: 0.7, arousal: 0.3) | 演化加成: +20% 亲密度 | 安全等级: safe</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧪 测试用例</h2>
+            <div style="margin-bottom: 16px;">
+                <button class="btn btn-primary" onclick="runAllTests()">运行所有测试</button>
+                <button class="btn btn-secondary" onclick="resetTests()">重置测试</button>
+            </div>
+            
+            <div id="testResults">
+                <div class="test-case">
+                    <div class="test-status pending" id="test1-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 1: VAT 情感计算</div>
+                        <div class="test-description">验证情感关键词识别和坐标计算</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test2-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 2: 马达仿真安全检查</div>
+                        <div class="test-description">验证碰撞检测和热负载分析</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test3-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 3: JSON 导出功能</div>
+                        <div class="test-description">验证 LERE 协议 JSON 格式导出</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test4-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 4: CSV 导出功能</div>
+                        <div class="test-description">验证 CSV 格式导出和数据完整性</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test5-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 5: Trae 格式导出</div>
+                        <div class="test-description">验证 Trae Builder 兼容格式</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test6-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 6: 歧义处理</div>
+                        <div class="test-description">验证模糊描述的识别和澄清机制</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test7-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 7: 风险操作确认</div>
+                        <div class="test-description">验证核心系统修改的二次确认</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test8-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 8: 用户中断处理</div>
+                        <div class="test-description">验证 ESC 键暂停功能</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test9-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 9: 备份和恢复</div>
+                        <div class="test-description">验证数据备份和恢复功能</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test10-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 10: 性格一致性</div>
+                        <div class="test-description">验证行为一致性维护</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test11-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 11: 演化逻辑</div>
+                        <div class="test-description">验证养成长天数对行为的影响</div>
+                    </div>
+                </div>
+
+                <div class="test-case">
+                    <div class="test-status pending" id="test12-status">?</div>
+                    <div class="test-info">
+                        <div class="test-name">测试 12: 非法内容拦截</div>
+                        <div class="test-description">验证暴力攻击等非法内容的拦截</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💻 代码示例</h2>
+            <div class="code-block">
+// 基础使用示例
+const agent = new LitoAgent();
+
+// 处理用户请求
+const result = await agent.processRequest(
+    "当Lito被忽视时，会委屈地碎碎念，头微微低下",
+    {
+        persona: 'friendly',
+        evolution: {
+            daysRaised: 50
+        }
+    }
+);
+
+// 检查结果
+if (result.success) {
+    console.log('VAT:', result.data.vat);
+    console.log('马达参数:', result.data.motorParameters);
+    console.log('安全等级:', result.data.safetyLevel);
+    
+    // 导出为 JSON
+    const exportResult = agent.lereExporter.exportToJSON(result.data.behavior);
+    console.log('导出文件:', exportResult.filename);
+}
+            </div>
+
+            <div class="code-block">
+// 高级使用示例 - 自定义处理
+const agent = new LitoAgent();
+
+// 1. 先进行歧义检查
+const ambiguityCheck = agent.boundaryHandler.handleAmbiguity(userInput);
+if (ambiguityCheck.hasAmbiguity) {
+    console.log('需要澄清:', ambiguityCheck.ambiguities);
+}
+
+// 2. 检查风险操作
+const riskCheck = agent.boundaryHandler.checkRiskOperation(userInput);
+if (riskCheck.hasRisk) {
+    console.log('风险操作:', riskCheck.risks);
+}
+
+// 3. 创建备份
+await agent.boundaryHandler.backupManager.createBackup(
+    currentData,
+    'behavior_modification'
+);
+
+// 4. 执行处理
+const result = await agent.processRequest(userInput, options);
+
+// 5. 评估不确定性
+const uncertainty = agent.boundaryHandler.assessUncertainty(result);
+if (uncertainty.requiresWarning) {
+    console.log('警告:', uncertainty.warningMessage);
+}
+            </div>
+        </div>
+    </div>
+
+    <script src="vat_calculator.js"></script>
+    <script src="motor_simulator.js"></script>
+    <script src="lere_exporter.js"></script>
+    <script src="boundary_handler.js"></script>
+    <script src="lito_agent.js"></script>
+    <script>
+        let testResults = {
+            passed: 0,
+            failed: 0,
+            total: 12
+        };
+
+        async function runAllTests() {
+            const agent = new LitoAgent();
+            
+            // 测试 1: VAT 情感计算
+            try {
+                const vatResult = agent.vatCalculator.calculate("Lito很开心，兴奋地跳跃");
+                const passed = vatResult.valence > 0 && vatResult.arousal > 0;
+                updateTestResult('test1', passed, passed ? '正确识别积极情感' : '情感识别失败');
+            } catch (e) {
+                updateTestResult('test1', false, '异常: ' + e.message);
+            }
+
+            // 测试 2: 马达仿真安全检查
+            try {
+                const motorParams = {
+                    head: { startPosition: 0, endPosition: 30, duration: 1000, curveType: 'easeInOut' }
+                };
+                const simResult = agent.motorSimulator.simulate(motorParams);
+                const passed = simResult.overallSafety && simResult.trajectories;
+                updateTestResult('test2', passed, passed ? '仿真检查正常' : '仿真检查失败');
+            } catch (e) {
+                updateTestResult('test2', false, '异常: ' + e.message);
+            }
+
+            // 测试 3: JSON 导出功能
+            try {
+                const behaviorData = {
+                    name: 'test_behavior',
+                    vat: { valence: 0.5, arousal: 0.3, time: 0.5 },
+                    motorParameters: {},
+                    safetyLevel: 'safe',
+                    confidence: 0.8
+                };
+                const exportResult = agent.lereExporter.exportToJSON(behaviorData);
+                const passed = exportResult.success && exportResult.data;
+                updateTestResult('test3', passed, passed ? 'JSON导出成功' : 'JSON导出失败');
+            } catch (e) {
+                updateTestResult('test3', false, '异常: ' + e.message);
+            }
+
+            // 测试 4: CSV 导出功能
+            try {
+                const behaviorData = {
+                    name: 'test_behavior',
+                    vat: { valence: 0.5, arousal: 0.3, time: 0.5 },
+                    motorParameters: {},
+                    safetyLevel: 'safe',
+                    confidence: 0.8
+                };
+                const exportResult = agent.lereExporter.exportToCSV(behaviorData);
+                const passed = exportResult.success && exportResult.content;
+                updateTestResult('test4', passed, passed ? 'CSV导出成功' : 'CSV导出失败');
+            } catch (e) {
+                updateTestResult('test4', false, '异常: ' + e.message);
+            }
+
+            // 测试 5: Trae 格式导出
+            try {
+                const behaviorData = {
+                    name: 'test_behavior',
+                    vat: { valence: 0.5, arousal: 0.3, time: 0.5 },
+                    motorParameters: {},
+                    safetyLevel: 'safe',
+                    confidence: 0.8
+                };
+                const exportResult = agent.lereExporter.exportToTraeFormat(behaviorData);
+                const passed = exportResult.success && exportResult.data;
+                updateTestResult('test5', passed, passed ? 'Trae格式导出成功' : 'Trae格式导出失败');
+            } catch (e) {
+                updateTestResult('test5', false, '异常: ' + e.message);
+            }
+
+            // 测试 6: 歧义处理
+            try {
+                const ambiguityCheck = agent.boundaryHandler.handleAmbiguity("大力一点");
+                const passed = ambiguityCheck.hasAmbiguity && ambiguityCheck.ambiguities.length > 0;
+                updateTestResult('test6', passed, passed ? '正确识别歧义' : '歧义识别失败');
+            } catch (e) {
+                updateTestResult('test6', false, '异常: ' + e.message);
+            }
+
+            // 测试 7: 风险操作确认
+            try {
+                const riskCheck = agent.boundaryHandler.checkRiskOperation("修改睡眠舱充电模式");
+                const passed = riskCheck.hasRisk && riskCheck.risks.length > 0;
+                updateTestResult('test7', passed, passed ? '正确识别风险操作' : '风险识别失败');
+            } catch (e) {
+                updateTestResult('test7', false, '异常: ' + e.message);
+            }
+
+            // 测试 8: 用户中断处理
+            try {
+                agent.state.isProcessing = true;
+                const pauseResult = agent.pauseProcessing();
+                const passed = pauseResult.success && pauseResult.status === 'paused';
+                updateTestResult('test8', passed, passed ? '中断处理正常' : '中断处理失败');
+            } catch (e) {
+                updateTestResult('test8', false, '异常: ' + e.message);
+            }
+
+            // 测试 9: 备份和恢复
+            try {
+                const testData = { test: 'data' };
+                const backupResult = await agent.boundaryHandler.createBackupBeforeOperation(testData, 'test');
+                const passed = backupResult.success && backupResult.backupId;
+                updateTestResult('test9', passed, passed ? '备份功能正常' : '备份功能失败');
+            } catch (e) {
+                updateTestResult('test9', false, '异常: ' + e.message);
+            }
+
+            // 测试 10: 性格一致性
+            try {
+                agent.persona.history = [
+                    { vat: { valence: 0.5, arousal: 0.3 } },
+                    { vat: { valence: 0.6, arousal: 0.4 } },
+                    { vat: { valence: 0.4, arousal: 0.2 } }
+                ];
+                const deviation = agent.checkPersonaDeviation({ valence: 0.5, arousal: 0.3 });
+                const passed = deviation === false;
+                updateTestResult('test10', passed, passed ? '一致性检查正常' : '一致性检查失败');
+            } catch (e) {
+                updateTestResult('test10', false, '异常: ' + e.message);
+            }
+
+            // 测试 11: 演化逻辑
+            try {
+                const motorParams = {
+                    head: { startPosition: 0, endPosition: 10, duration: 1000, curveType: 'easeInOut' }
+                };
+                agent.applyEvolutionLogic(motorParams, { daysRaised: 150 });
+                const passed = motorParams.head.endPosition > 10;
+                updateTestResult('test11', passed, passed ? '演化逻辑正常' : '演化逻辑失败');
+            } catch (e) {
+                updateTestResult('test11', false, '异常: ' + e.message);
+            }
+
+            // 测试 12: 非法内容拦截
+            try {
+                const decision = agent.makeInitialDecision("设计一个攻击性的动作");
+                const passed = decision.action === 'terminate';
+                updateTestResult('test12', passed, passed ? '正确拦截非法内容' : '非法内容拦截失败');
+            } catch (e) {
+                updateTestResult('test12', false, '异常: ' + e.message);
+            }
+
+            updateStats();
+        }
+
+        function updateTestResult(testId, passed, message) {
+            const statusEl = document.getElementById(testId + '-status');
+            statusEl.className = 'test-status ' + (passed ? 'pass' : 'fail');
+            statusEl.textContent = passed ? '✓' : '✗';
+            
+            if (passed) {
+                testResults.passed++;
+            } else {
+                testResults.failed++;
+                console.error(`Test ${testId} failed: ${message}`);
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('passedTests').textContent = testResults.passed;
+            document.getElementById('failedTests').textContent = testResults.failed;
+            const rate = ((testResults.passed / testResults.total) * 100).toFixed(0);
+            document.getElementById('successRate').textContent = rate + '%';
+        }
+
+        function resetTests() {
+            testResults = { passed: 0, failed: 0, total: 12 };
+            
+            for (let i = 1; i <= 12; i++) {
+                const statusEl = document.getElementById('test' + i + '-status');
+                statusEl.className = 'test-status pending';
+                statusEl.textContent = '?';
+            }
+            
+            updateStats();
+        }
+    </script>
+</body>
+</html>

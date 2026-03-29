@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品经理协助Agent系统</title>
+    <link rel="stylesheet" href="pm_agent.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>🚀 产品经理协助Agent系统</h1>
+                <p class="subtitle">智能化产品需求管理与PRD生成平台</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" id="newProjectBtn">新建项目</button>
+                <button class="btn btn-primary" id="exportBtn">导出报告</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <nav class="agent-nav">
+                    <div class="nav-header">
+                        <span>🤖 智能代理</span>
+                    </div>
+                    <div class="nav-items">
+                        <button class="nav-item active" data-agent="recorder">
+                            <span class="agent-icon">📝</span>
+                            <div class="agent-info">
+                                <span class="agent-name">会议转录与事实整理员</span>
+                                <span class="agent-desc">Recorder</span>
+                            </div>
+                        </button>
+                        <button class="nav-item" data-agent="translator">
+                            <span class="agent-icon">🎯</span>
+                            <div class="agent-info">
+                                <span class="agent-name">业务意图翻译官</span>
+                                <span class="agent-desc">Intent Translator</span>
+                            </div>
+                        </button>
+                        <button class="nav-item" data-agent="writer">
+                            <span class="agent-icon">📄</span>
+                            <div class="agent-info">
+                                <span class="agent-name">PRD结构化写手</span>
+                                <span class="agent-desc">PRD Writer</span>
+                            </div>
+                        </button>
+                        <button class="nav-item" data-agent="reviewer">
+                            <span class="agent-icon">🔍</span>
+                            <div class="agent-info">
+                                <span class="agent-name">评审挑战模拟器</span>
+                                <span class="agent-desc">Reviewer</span>
+                            </div>
+                        </button>
+                        <button class="nav-item" data-agent="generator">
+                            <span class="agent-icon">🎫</span>
+                            <div class="agent-info">
+                                <span class="agent-name">工单与落地拆解员</span>
+                                <span class="agent-desc">Ticket Generator</span>
+                            </div>
+                        </button>
+                    </div>
+                </nav>
+
+                <div class="project-info">
+                    <h3>当前项目</h3>
+                    <div class="project-details">
+                        <div class="project-name" id="projectName">新项目</div>
+                        <div class="project-meta">
+                            <span id="projectStatus">进行中</span>
+                            <span id="projectProgress">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="workspace">
+                <div class="agent-panel" id="recorderPanel">
+                    <div class="panel-header">
+                        <h2>📝 会议转录与事实整理员</h2>
+                        <div class="panel-actions">
+                            <button class="btn btn-sm btn-outline" id="clearRecorderBtn">清空</button>
+                            <button class="btn btn-sm btn-primary" id="processRecorderBtn">开始处理</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div class="input-section">
+                            <label>输入会议内容</label>
+                            <div class="input-tabs">
+                                <button class="tab-btn active" data-tab="text">文本输入</button>
+                                <button class="tab-btn" data-tab="upload">文件上传</button>
+                            </div>
+                            <div class="tab-content active" id="textTab">
+                                <textarea id="meetingInput" placeholder="请粘贴会议录音转录、纪要、聊天记录或飞书文档内容...
+
+示例：
+今天开会讨论了用户登录功能的需求。产品经理说需要支持手机号和邮箱登录。开发负责人表示需要2周时间完成。测试人员建议增加验证码功能。会议决定先做手机号登录，邮箱登录放到第二期。"></textarea>
+                            </div>
+                            <div class="tab-content" id="uploadTab">
+                                <div class="upload-area">
+                                    <input type="file" id="fileUpload" accept=".txt,.doc,.docx,.pdf" multiple>
+                                    <label for="fileUpload" class="upload-label">
+                                        <span class="upload-icon">📁</span>
+                                        <span>点击或拖拽文件到此处</span>
+                                        <span class="upload-hint">支持 .txt, .doc, .docx, .pdf 格式</span>
+                                    </label>
+                                    <div class="file-list" id="fileList"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="options-section">
+                            <div class="option-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="anonymizeData">
+                                    <span>数据脱敏（替换人名、手机号等敏感信息）</span>
+                                </label>
+                            </div>
+                            <div class="option-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="extractDecisions" checked>
+                                    <span>提取决策与责任人</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="output-section">
+                            <label>处理结果</label>
+                            <div class="output-tabs">
+                                <button class="output-tab-btn active" data-output="facts">事实清单</button>
+                                <button class="output-tab-btn" data-output="pending">待确认点</button>
+                                <button class="output-tab-btn" data-output="decisions">决策与责任人</button>
+                            </div>
+                            <div class="output-content">
+                                <div class="output-panel active" id="factsPanel">
+                                    <div class="empty-state">
+                                        <span>📋</span>
+                                        <p>输入会议内容后点击"开始处理"</p>
+                                    </div>
+                                </div>
+                                <div class="output-panel" id="pendingPanel">
+                                    <div class="empty-state">
+                                        <span>❓</span>
+                                        <p>待确认点将在这里显示</p>
+                                    </div>
+                                </div>
+                                <div class="output-panel" id="decisionsPanel">
+                                    <div class="empty-state">
+                                        <span>✅</span>
+                                        <p>决策与责任人将在这里显示</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-panel hidden" id="translatorPanel">
+                    <div class="panel-header">
+                        <h2>🎯 业务意图翻译官</h2>
+                        <div class="panel-actions">
+                            <button class="btn btn-sm btn-outline" id="clearTranslatorBtn">清空</button>
+                            <button class="btn btn-sm btn-primary" id="processTranslatorBtn">开始翻译</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div class="input-section">
+                            <label>业务需求描述</label>
+                            <textarea id="businessInput" placeholder="请描述业务需求...
+
+示例：
+我们想要一个用户登录功能，让用户能够快速登录系统。"></textarea>
+                        </div>
+
+                        <div class="reference-section">
+                            <label>参考事实清单（来自代理1）</label>
+                            <div class="reference-box" id="translatorReference">
+                                <div class="empty-state">
+                                    <span>📋</span>
+                                    <p>请先在"会议转录与事实整理员"中处理会议内容</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="output-section">
+                            <label>翻译结果</label>
+                            <div class="output-grid">
+                                <div class="output-card">
+                                    <h4>🎯 目标</h4>
+                                    <div class="card-content" id="goalOutput">
+                                        <div class="empty-state">
+                                            <span>🎯</span>
+                                            <p>目标将在这里显示</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="output-card">
+                                    <h4>⚠️ 约束</h4>
+                                    <div class="card-content" id="constraintsOutput">
+                                        <div class="empty-state">
+                                            <span>⚠️</span>
+                                            <p>约束条件将在这里显示</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="output-card">
+                                    <h4>💡 关键假设</h4>
+                                    <div class="card-content" id="assumptionsOutput">
+                                        <div class="empty-state">
+                                            <span>💡</span>
+                                            <p>关键假设将在这里显示</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="output-card">
+                                    <h4>📊 优先级建议</h4>
+                                    <div class="card-content" id="priorityOutput">
+                                        <div class="empty-state">
+                                            <span>📊</span>
+                                            <p>优先级建议将在这里显示</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-panel hidden" id="writerPanel">
+                    <div class="panel-header">
+                        <h2>📄 PRD结构化写手</h2>
+                        <div class="panel-actions">
+                            <button class="btn btn-sm btn-outline" id="clearWriterBtn">清空</button>
+                            <button class="btn btn-sm btn-primary" id="generatePRDBtn">生成PRD</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div class="input-section">
+                            <label>PRD基本信息</label>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>项目名称</label>
+                                    <input type="text" id="prdName" placeholder="例如：用户登录功能">
+                                </div>
+                                <div class="form-group">
+                                    <label>版本号</label>
+                                    <input type="text" id="prdVersion" value="v1.0.0">
+                                </div>
+                                <div class="form-group">
+                                    <label>负责人</label>
+                                    <input type="text" id="prdOwner" placeholder="产品经理姓名">
+                                </div>
+                                <div class="form-group">
+                                    <label>截止日期</label>
+                                    <input type="date" id="prdDeadline">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reference-section">
+                            <label>业务意图（来自代理2）</label>
+                            <div class="reference-box" id="writerReference">
+                                <div class="empty-state">
+                                    <span>🎯</span>
+                                    <p>请先在"业务意图翻译官"中翻译业务需求</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="output-section">
+                            <label>PRD文档</label>
+                            <div class="prd-preview" id="prdPreview">
+                                <div class="empty-state">
+                                    <span>📄</span>
+                                    <p>PRD文档将在这里生成</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-panel hidden" id="reviewerPanel">
+                    <div class="panel-header">
+                        <h2>🔍 评审挑战模拟器</h2>
+                        <div class="panel-actions">
+                            <button class="btn btn-sm btn-outline" id="clearReviewerBtn">清空</button>
+                            <button class="btn btn-sm btn-primary" id="startReviewBtn">开始评审</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div class="reviewer-roles">
+                            <h3>选择评审角色</h3>
+                            <div class="role-grid">
+                                <label class="role-card">
+                                    <input type="checkbox" value="dev" checked>
+                                    <div class="role-content">
+                                        <span class="role-icon">💻</span>
+                                        <span class="role-name">开发工程师</span>
+                                        <span class="role-desc">边界、异常、性能</span>
+                                    </div>
+                                </label>
+                                <label class="role-card">
+                                    <input type="checkbox" value="qa" checked>
+                                    <div class="role-content">
+                                        <span class="role-icon">🧪</span>
+                                        <span class="role-name">测试工程师</span>
+                                        <span class="role-desc">验收口径、极端场景</span>
+                                    </div>
+                                </label>
+                                <label class="role-card">
+                                    <input type="checkbox" value="data">
+                                    <div class="role-content">
+                                        <span class="role-icon">📊</span>
+                                        <span class="role-name">数据分析师</span>
+                                        <span class="role-desc">指标定义、归因逻辑</span>
+                                    </div>
+                                </label>
+                                <label class="role-card">
+                                    <input type="checkbox" value="compliance">
+                                    <div class="role-content">
+                                        <span class="role-icon">⚖️</span>
+                                        <span class="role-name">合规专员</span>
+                                        <span class="role-desc">数据来源、用户授权</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="reference-section">
+                            <label>PRD文档（来自代理3）</label>
+                            <div class="reference-box" id="reviewerReference">
+                                <div class="empty-state">
+                                    <span>📄</span>
+                                    <p>请先生成PRD文档</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="output-section">
+                            <label>评审结果</label>
+                            <div class="review-output">
+                                <div class="review-tabs">
+                                    <button class="review-tab-btn active" data-tab="questions">挑战问题</button>
+                                    <button class="review-tab-btn" data-tab="decisions">决策记录</button>
+                                    <button class="review-tab-btn" data-tab="disputes">争议清单</button>
+                                </div>
+                                <div class="review-content">
+                                    <div class="review-panel active" id="questionsPanel">
+                                        <div class="empty-state">
+                                            <span>❓</span>
+                                            <p>挑战问题将在这里显示</p>
+                                        </div>
+                                    </div>
+                                    <div class="review-panel" id="decisionsPanel">
+                                        <div class="empty-state">
+                                            <span>✅</span>
+                                            <p>决策记录将在这里显示</p>
+                                        </div>
+                                    </div>
+                                    <div class="review-panel" id="disputesPanel">
+                                        <div class="empty-state">
+                                            <span>⚡</span>
+                                            <p>争议清单将在这里显示</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="agent-panel hidden" id="generatorPanel">
+                    <div class="panel-header">
+                        <h2>🎫 工单与落地拆解员</h2>
+                        <div class="panel-actions">
+                            <button class="btn btn-sm btn-outline" id="clearGeneratorBtn">清空</button>
+                            <button class="btn btn-sm btn-primary" id="generateTicketsBtn">生成工单</button>
+                        </div>
+                    </div>
+                    <div class="panel-content">
+                        <div class="input-section">
+                            <label>里程碑设置</label>
+                            <div class="milestone-inputs">
+                                <div class="milestone-row">
+                                    <input type="text" placeholder="里程碑名称" value="MVP版本">
+                                    <input type="date" id="milestone1Date">
+                                </div>
+                                <div class="milestone-row">
+                                    <input type="text" placeholder="里程碑名称" value="完整版本">
+                                    <input type="date" id="milestone2Date">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reference-section">
+                            <label>最终PRD（来自代理3+4）</label>
+                            <div class="reference-box" id="generatorReference">
+                                <div class="empty-state">
+                                    <span>📄</span>
+                                    <p>请先完成PRD生成和评审</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="output-section">
+                            <label>工单列表</label>
+                            <div class="ticket-output">
+                                <div class="ticket-filters">
+                                    <button class="filter-btn active" data-filter="all">全部</button>
+                                    <button class="filter-btn" data-filter="frontend">前端</button>
+                                    <button class="filter-btn" data-filter="backend">后端</button>
+                                    <button class="filter-btn" data-filter="data">数据</button>
+                                    <button class="filter-btn" data-filter="config">配置</button>
+                                </div>
+                                <div class="ticket-list" id="ticketList">
+                                    <div class="empty-state">
+                                        <span>🎫</span>
+                                        <p>工单将在这里生成</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <script src="pm_agent.js"></script>
+</body>
+</html>
