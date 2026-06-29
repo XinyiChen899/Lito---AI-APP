@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+KuaiLe&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Noto Sans SC', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #FFF8E7;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.font-display {
+  font-family: 'ZCOOL KuaiLe', cursive;
+}
+
+.font-body {
+  font-family: 'Noto Sans SC', sans-serif;
+}
+
+.dream-bg {
+  background: linear-gradient(135deg, #7B68EE 0%, #B19CD9 50%, #9370DB 100%);
+}
+
+.starfield {
+  position: relative;
+  overflow: hidden;
+}
+
+.starfield::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 230px 80px, rgba(255,255,255,0.4), transparent),
+    radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 370px 60px, rgba(255,255,255,0.5), transparent),
+    radial-gradient(2px 2px at 450px 180px, rgba(255,255,255,0.7), transparent);
+  background-size: 500px 200px;
+  animation: twinkle 5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #FFB347 0%, #C8B8E6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.status-bar {
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.status-bar-fill {
+  height: 100%;
+  transition: width 0.5s ease-out;
+}
+
+.memory-fragment {
+  animation: float 4s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.memory-fragment:hover {
+  transform: scale(1.1);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+.card-shadow {
+  box-shadow: 0 4px 20px rgba(139, 115, 85, 0.08);
+}
+
+.card-shadow-lg {
+  box-shadow: 0 8px 30px rgba(139, 115, 85, 0.12);
+}

@@ -1,99 +1,24 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>心情日记本</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="theme-selector">
-        <button class="theme-btn" data-theme="purple" title="紫色主题">💜</button>
-        <button class="theme-btn" data-theme="blue" title="蓝色主题">💙</button>
-        <button class="theme-btn" data-theme="green" title="绿色主题">💚</button>
-        <button class="theme-btn" data-theme="pink" title="粉色主题">💗</button>
-        <button class="theme-btn" data-theme="orange" title="橙色主题">🧡</button>
-    </div>
-
-    <div class="music-player">
-        <button class="music-btn" id="musicToggle" title="播放/暂停音乐">🎵</button>
-        <div class="music-controls" id="musicControls">
-            <button class="music-control-btn" data-track="0" title="轻音乐1">1</button>
-            <button class="music-control-btn" data-track="1" title="轻音乐2">2</button>
-            <button class="music-control-btn" data-track="2" title="轻音乐3">3</button>
-        </div>
-    </div>
-
-    <audio id="backgroundMusic" loop>
-        <source src="" type="audio/mpeg">
-    </audio>
-
-    <div class="container">
-        <div class="header">
-            <div class="date-info">
-                <h1 id="currentDate"></h1>
-                <p id="currentTime"></p>
-                <div class="time-selector">
-                    <label for="customTime">自定义时间：</label>
-                    <input type="time" id="customTime">
-                    <button class="btn-small" id="useCurrentTime">使用当前时间</button>
-                </div>
-            </div>
-            <div class="weather-selector">
-                <button class="weather-btn" data-weather="sunny" title="晴天">☀️</button>
-                <button class="weather-btn" data-weather="cloudy" title="多云">☁️</button>
-                <button class="weather-btn" data-weather="rainy" title="雨天">🌧️</button>
-                <button class="weather-btn" data-weather="snowy" title="雪天">❄️</button>
-            </div>
-        </div>
-
-        <div class="mood-section">
-            <h2>今天的心情</h2>
-            <div class="mood-selector">
-                <button class="mood-btn" data-mood="happy" title="开心">😊</button>
-                <button class="mood-btn" data-mood="sad" title="难过">😢</button>
-                <button class="mood-btn" data-mood="angry" title="生气">😠</button>
-                <button class="mood-btn" data-mood="anxious" title="焦虑">😰</button>
-                <button class="mood-btn" data-mood="excited" title="兴奋">🤩</button>
-                <button class="mood-btn" data-mood="calm" title="平静">😌</button>
-                <button class="mood-btn" data-mood="tired" title="疲惫">😴</button>
-                <button class="mood-btn" data-mood="grateful" title="感恩">🥰</button>
-            </div>
-        </div>
-
-        <div class="diary-section">
-            <div class="diary-header">
-                <h2>写下你的故事</h2>
-                <div class="word-count">
-                    <span id="wordCount">0</span> 字
-                </div>
-            </div>
-            <textarea 
-                id="diaryContent" 
-                placeholder="今天发生了什么？记录下你的想法和感受..."
-                maxlength="5000"
-            ></textarea>
-        </div>
-
-        <div class="actions">
-            <button class="btn btn-secondary" id="historyBtn">历史记录</button>
-            <button class="btn btn-primary" id="saveBtn">保存日记</button>
-        </div>
-    </div>
-
-    <div class="modal" id="historyModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>历史日记</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body" id="historyList">
-            </div>
-        </div>
-    </div>
-
-    <div class="toast" id="toast"></div>
-
-    <script src="script.js"></script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Trae Project</title>
+    <script type="module">
+      if (import.meta.hot?.on) {
+        import.meta.hot.on('vite:error', (error) => {
+          if (error.err) {
+            console.error(
+              [error.err.message, error.err.frame].filter(Boolean).join('\n'),
+            )
+          }
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
