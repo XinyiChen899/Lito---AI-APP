@@ -8,7 +8,7 @@ const GITHUB_PAGES = process.env.GITHUB_PAGES === 'true';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: GITHUB_PAGES ? '/lito-app/' : '/',
+  base: GITHUB_PAGES ? '/Lito---AI-APP/' : '/',
   build: {
     sourcemap: 'hidden',
   },
