@@ -1,5 +1,7 @@
 # Lito - AI情感伴宠APP
 
+🌐 **在线访问**: [https://XinyiChen899.github.io/Lito---AI-APP/](https://XinyiChen899.github.io/Lito---AI-APP/)
+
 Lito是一款软硬件一体的AI情感陪伴宠物，通过可爱的实体宠物与APP联动，为用户提供深度情感支持、智能互动和独特的梦境体验。
 
 ## 特性
